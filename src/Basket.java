@@ -1,11 +1,8 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Basket {
+public class Basket implements Serializable{
     protected String[] food;
     protected int[] price;
     protected int[] count;
@@ -29,7 +26,7 @@ public class Basket {
     public void printCart() {
         System.out.println("Ваша корзина:");
         for (int i = 0; i < food.length; i++) {
-            
+
             System.out.println(food[i] + ": " + count[i] + " шт. " + price[i]
                     + " руб/шт." + " В сумме: " + count[i] * price[i]);
 
@@ -71,9 +68,21 @@ public class Basket {
 
         }
     }
+        public void saveBin(File binFile) throws IOException {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(binFile))) {
+                out.writeObject(this);
+            }
+        }
 
-
+public static Basket loadFromBinFile(File binFile) throws IOException,ClassNotFoundException {
+           try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(binFile))){
+            return (Basket) in.readObject();
+         }
 }
+    }
+
+
+
 
 
 

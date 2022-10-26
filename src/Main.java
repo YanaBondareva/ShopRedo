@@ -11,7 +11,7 @@ public class Main {
         int[] count = new int[price.length];
         Basket basket;
         try {
-            basket = Basket.loadFromTxtFile(new File("basket1.txt"));
+            basket = Basket.loadFromBinFile(new File("basket1.bin"));
         } catch (FileNotFoundException e) {
             System.out.println("Корзина не найдена. Создаю новую.");
             basket = new Basket(food, price);
@@ -30,7 +30,7 @@ public class Main {
             int foodNumber = Integer.parseInt(parts[0]) - 1;
             int foodCount = Integer.parseInt(parts[1]);
             basket.addToCart(foodNumber, foodCount);
-            basket.saveTxt(new File("basket1.txt"));
+            basket.saveBin(new File("basket1.bin"));
         }
         basket.printCart();
 
